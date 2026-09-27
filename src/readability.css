@@ -1,0 +1,84 @@
+/* Readability pass — preserve the luxury spacing while making the storefront easier to read */
+html{font-size:16px}
+body{font-size:15px}
+
+/* Global small-copy floor */
+.eyebrow{font-size:11px!important;letter-spacing:.19em!important;line-height:1.45}
+.announcement{font-size:9px!important;letter-spacing:.16em!important;min-height:34px}
+.nav-links,.nav-actions{font-size:11px!important;letter-spacing:.11em!important}
+.luxe-link,.shop-intro a,.collection-feature a,.collection-feature button,.collection-landing-copy>button,.back-home,.back-product,.story-hero>button,.custom-landing>button,.flow-next,.add-cart,.checkout-btn{font-size:10px!important;letter-spacing:.11em!important}
+
+/* Homepage */
+.luxe-hero-copy>p:not(.eyebrow){font-size:15px!important;line-height:1.85!important;max-width:590px!important}
+.shop-intro h2{line-height:.98!important}
+.lux-product-meta small{font-size:9px!important;letter-spacing:.12em!important}
+.lux-product-meta h3{font-size:24px!important;line-height:1.08!important;margin:8px 0 7px!important}
+.lux-product-meta>span{font-size:12px!important}
+.product-kicker,.live-tag{font-size:9px!important}
+.collection-number{font-size:20px!important}
+.collection-feature p:not(.eyebrow){font-size:14px!important;line-height:1.75!important;max-width:470px!important}
+.brand-pause>div p{font-size:14px!important;line-height:1.85!important}
+.brand-pause>p:first-of-type,.brand-pause small{font-size:9px!important}
+.custom-luxe p:not(.eyebrow){font-size:14px!important;line-height:1.85!important;max-width:560px!important}
+.newsletter input{font-size:14px!important}
+.newsletter button{font-size:10px!important}
+.site-footer>p,.site-footer>button{font-size:9px!important;line-height:1.5}
+
+/* Mega menu */
+.mega-menu h3{font-size:46px!important}
+.mega-links button{font-size:13px!important;line-height:1.35;padding:16px 0!important}
+.mega-links button span{font-size:10px!important}
+.mega-art span{font-size:8px!important}
+
+/* Collection landing pages */
+.collection-landing-copy>p:not(.eyebrow){font-size:15px!important;line-height:1.8!important;max-width:610px!important}
+.landing-index{font-size:9px!important}
+.collection-shop-head>span{font-size:10px!important}
+.collection-story-strip span{font-size:10px!important}
+.collection-story-strip p{font-size:30px!important;line-height:1.15!important}
+
+/* Product detail */
+.product-price{font-size:16px!important}
+.product-editorial{font-size:31px!important;line-height:1.18!important}
+.product-description{font-size:15px!important;line-height:1.85!important;max-width:590px!important}
+.product-detail-art>span{font-size:9px!important}
+.qty span{font-size:12px!important}
+.detail-notes p{font-size:10px!important;line-height:1.45!important}
+.product-manifesto p{font-size:11px!important}
+
+/* Story + custom landing flows */
+.story-chapters span{font-size:10px!important}
+.story-chapters h2{font-size:42px!important;line-height:1.05!important}
+.story-chapters p{font-size:15px!important;line-height:1.85!important}
+.custom-landing>p:last-child{font-size:15px!important;line-height:1.85!important;max-width:620px!important}
+.custom-progress div{font-size:11px!important;line-height:1.4!important}
+.custom-progress span{font-size:10px!important}
+.choice-grid button{font-size:14px!important;line-height:1.45!important;padding:22px!important}
+.custom-complete{font-size:15px!important;line-height:1.85!important}
+
+/* Cart */
+.cart-mini strong{font-size:15px!important}
+.cart-mini span{font-size:11px!important}
+
+/* Owner workspace — still compact, but no tiny text */
+.os-brand-simple strong{font-size:10px!important}.os-brand-simple span{font-size:9px!important}
+.os-demo-simple nav button,.back-site{font-size:12px!important}
+.os-demo-simple header small,.os-welcome small,.os-lower small{font-size:9px!important}
+.os-welcome p{font-size:14px!important}
+.os-metrics span{font-size:10px!important}
+.os-lower p{font-size:12px!important;line-height:1.6!important}
+.studio-label,.studio-head p{font-size:9px!important}
+.studio-head span,.template-grid span,.route-card p,.success-card span{font-size:12px!important;line-height:1.65!important}
+.template-grid small{font-size:9px!important}
+.form-grid label{font-size:10px!important}
+.review-list p{font-size:11px!important}
+
+@media(max-width:900px){
+  .announcement{font-size:8px!important;padding:0 14px;text-align:center;line-height:1.35}
+  .nav-actions{gap:16px}
+  .luxe-hero-copy>p:not(.eyebrow),.collection-landing-copy>p:not(.eyebrow),.custom-landing>p:last-child,.product-description,.story-chapters p{font-size:14px!important}
+  .collection-feature p:not(.eyebrow){font-size:13px!important}
+  .lux-product-meta h3{font-size:21px!important}
+  .story-chapters h2{font-size:36px!important}
+  .collection-story-strip p{font-size:26px!important}
+}
