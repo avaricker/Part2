@@ -5,6 +5,7 @@ import './index.css';
 import './studio.css';
 import './collections-overlay.css';
 import './interactions.css';
+import './readability.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
