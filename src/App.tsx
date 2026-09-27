@@ -14,6 +14,13 @@ const templates = [
   { name: 'Custom', category: 'Custom Orders', note: 'Proof, due date, customer details, production' },
 ];
 
+const seedProducts = [
+  { name:'The Everyday Crew', category:'Apparel', price:'68', tone:'cream' },
+  { name:'Better Days Market Tote', category:'Gifts', price:'34', tone:'oat' },
+  { name:'The Sunday Mug', category:'Kitchen', price:'28', tone:'sand' },
+  { name:'Sweet Dreams Pillowcase', category:'Cozy Nights', price:'42', tone:'sage' },
+];
+
 function BrandLockup({ dark = false }: { dark?: boolean }) {
   return <div className={`brand-lockup ${dark ? 'brand-lockup-dark' : ''}`}><span className="brand-script">Positively</span><span className="brand-made">MADE</span></div>;
 }
@@ -30,50 +37,62 @@ export default function App() {
     setProducts(next);
     localStorage.setItem('pm-demo-products', JSON.stringify(next));
     setShowOS(false);
-    setTimeout(() => document.getElementById('live-products')?.scrollIntoView({ behavior:'smooth' }), 80);
+    setTimeout(() => document.getElementById('new-arrivals')?.scrollIntoView({ behavior:'smooth' }), 80);
   };
 
   if (showOS) return <BusinessOS page={page} setPage={setPage} onViewSite={() => setShowOS(false)} onPublish={publishProduct} />;
 
-  return <div className="site-shell">
-    <header className="site-nav">
-      <nav className="nav-links"><a href="#shop">Shop</a><a href="#custom">Custom</a><a href="#story">Our Story</a></nav>
+  return <div className="site-shell luxe-shop">
+    <div className="announcement">COMPLIMENTARY SHIPPING ON ORDERS $100+ <span>•</span> MADE WITH INTENTION</div>
+    <header className="luxe-nav">
+      <nav className="nav-links"><a href="#new-arrivals">New</a><a href="#collections">Collections</a><a href="#custom">Custom</a></nav>
       <a className="nav-logo" href="#top"><BrandLockup /></a>
-      <div className="nav-actions"><Search size={18}/><ShoppingBag size={18}/></div>
+      <div className="nav-actions"><a href="#story">Our Story</a><Search size={17}/><ShoppingBag size={17}/></div>
     </header>
 
-    <section className="cinematic-hero" id="top">
-      <div className="hero-glow hero-glow-one"/><div className="hero-glow hero-glow-two"/>
-      <div className="hero-monogram"><img src="/brand/pm-monogram.svg" alt="PM"/></div>
-      <div className="hero-copy">
-        <p className="eyebrow light">POSITIVELY MADE / EST. 2026</p>
-        <h1>Better days<br/><em>are made.</em></h1>
-        <p className="hero-sub">Thoughtful goods, custom pieces, and stories made to bring a little more good into everyday life.</p>
-        <a href="#shop" className="hero-cta">Discover the brand <ArrowRight size={16}/></a>
+    <section className="luxe-hero" id="top">
+      <div className="luxe-hero-copy">
+        <p className="eyebrow">THE POSITIVELY MADE EDIT</p>
+        <h1>Better days<br/>are <em>made.</em></h1>
+        <p>Thoughtful goods for home, family, gifting, and the everyday rituals worth making a little better.</p>
+        <a href="#new-arrivals" className="luxe-link">Shop the edit <ArrowRight size={15}/></a>
       </div>
-      <div className="hero-sun-wrap"><img src="/brand/sun.svg" alt=""/></div>
+      <div className="luxe-hero-art">
+        <div className="sun-orbit"><img src="/brand/sun.svg" alt=""/></div>
+        <div className="hero-object hero-object-one"><span>BETTER</span><strong>DAYS</strong><small>ARE MADE.</small></div>
+        <div className="hero-object hero-object-two"><img src="/brand/pm-monogram.svg" alt="PM"/></div>
+        <p>POSITIVELY MADE / 2026</p>
+      </div>
     </section>
 
-    <section className="statement-section"><p className="eyebrow">THE IDEA</p><h2>Made for the little things<br/>that make life better.</h2><p>Positively Made is rooted in kindness, creativity, family, and the belief that better days are something we help create.</p></section>
+    <section className="shop-intro"><p className="eyebrow">NEW ARRIVALS</p><h2>Small things. Better days.</h2><a href="#new-arrivals">View all <ArrowRight size={14}/></a></section>
 
-    <section className="pathways" id="shop">
-      <article className="path-card path-card-light"><span>01</span><div><p className="eyebrow">SHOP</p><h3>Everyday goods,<br/>made with meaning.</h3><p>Apparel, gifts, home pieces, and future collections shaped by the Positively Made point of view.</p><button>Explore the shop <ArrowRight size={15}/></button></div></article>
-      <article className="path-card path-card-oat" id="custom"><span>02</span><div><p className="eyebrow">CUSTOM</p><h3>Your idea.<br/>Made personal.</h3><p>Custom pieces for schools, teams, events, businesses, gifts, and meaningful moments.</p><button>Start a custom order <ArrowRight size={15}/></button></div></article>
-      <article className="path-card path-card-mocha"><span>03</span><div><p className="eyebrow">BOOKS + STORIES</p><h3>Better days,<br/>made together.</h3><p>A children’s book world about sharing, helping, listening, learning, friendship, and family.</p><button>Discover the idea <ArrowRight size={15}/></button></div></article>
+    <section className="product-section" id="new-arrivals">
+      <div className="product-grid">
+        {products.map((product,i) => <article className="lux-product live" key={product.id}>
+          <div className={`lux-product-art tone-${['sand','cream','sage','oat'][i%4]}`}><img src="/brand/sun.svg" alt=""/><span className="live-tag">JUST ADDED</span><button>Quick view</button></div>
+          <div className="lux-product-meta"><small>{product.category.replace('Shop / ','')}</small><h3>{product.name}</h3><span>${Number(product.price || 0).toFixed(2)}</span></div>
+        </article>)}
+        {seedProducts.map((product,i) => <article className="lux-product" key={product.name}>
+          <div className={`lux-product-art tone-${product.tone}`}><div className="product-mark"><img src={i%2===0?'/brand/pm-monogram.svg':'/brand/sun.svg'} alt=""/></div><span className="product-kicker">POSITIVELY MADE</span><button>Quick view</button></div>
+          <div className="lux-product-meta"><small>{product.category}</small><h3>{product.name}</h3><span>${Number(product.price).toFixed(2)}</span></div>
+        </article>)}
+      </div>
     </section>
 
-    {products.length > 0 && <section className="live-products" id="live-products">
-      <div className="live-products-head"><div><p className="eyebrow">LIVE FROM PRODUCT STUDIO</p><h2>Just added to the website.</h2></div><span>{products.length} demo product{products.length===1?'':'s'}</span></div>
-      <div className="live-products-grid">{products.map(product => <article key={product.id} className="live-product-card">
-        <div className="live-product-art"><img src="/brand/sun.svg" alt=""/></div>
-        <small>{product.category}</small><h3>{product.name}</h3><p>{product.description}</p><strong>${Number(product.price || 0).toFixed(2)}</strong><span className="live-badge"><Check size={12}/> Live on website</span>
-      </article>)}</div>
-    </section>}
+    <section className="collection-editorial" id="collections">
+      <article className="collection-feature home-edit"><div className="collection-number">01</div><div><p className="eyebrow">THE HOME EDIT</p><h2>Better days<br/>begin at home.</h2><p>Soft goods, useful objects, and pieces made for the spaces where real life happens.</p><a href="#">Shop Home <ArrowRight size={14}/></a></div><img src="/brand/pm-monogram.svg" alt=""/></article>
+      <article className="collection-feature little-edit"><div className="collection-number">02</div><div><p className="eyebrow">BOOKS + STORIES</p><h2>Little books.<br/>Big ideas.</h2><p>Stories about sharing, listening, helping, learning, friendship, and family.</p><a href="#">Discover Books <ArrowRight size={14}/></a></div><img src="/brand/sun.svg" alt=""/></article>
+      <article className="collection-feature kitchen-edit"><div className="collection-number">03</div><div><p className="eyebrow">AROUND THE TABLE</p><h2>Made for<br/>gathering.</h2><p>Kitchen pieces, linens, and objects for the everyday rituals that bring people together.</p><a href="#">Shop Kitchen <ArrowRight size={14}/></a></div><span className="giant-pm">PM</span></article>
+    </section>
 
-    <section className="story-section" id="story"><div className="story-mark"><img src="/brand/pm-monogram.svg" alt="PM"/></div><div className="story-copy"><p className="eyebrow">OUR WHY</p><h2>Made from love.<br/>Built for real life.</h2><p>Positively Made began with a desire to make everyday life better for the people who matter most — Ryan, Knyx, and Lucy.</p><p className="story-small">The idea also leaves room for the many ways families are made: through IVF, blended families, divorce, chosen family, and every different path that can still lead to something deeply good.</p><div className="story-credit">Creative influence + technical direction by Ava Grace.</div></div></section>
+    <section className="brand-pause" id="story"><img src="/brand/sun.svg" alt=""/><p>OUR WHY</p><h2>Made from love.<br/>Built for real life.</h2><div><p>Positively Made began with a desire to make everyday life better for the people who matter most — Ryan, Knyx, and Lucy.</p><p>The idea also celebrates the many ways families are made, and the belief that something meaningful can come from every different path.</p></div><small>CREATIVE INFLUENCE + TECHNICAL DIRECTION BY AVA GRACE.</small></section>
 
-    <section className="wordmark-section"><img src="/brand/sun.svg" alt=""/><p>BETTER DAYS ARE MADE.</p></section>
-    <footer className="site-footer"><BrandLockup dark/><p>THOUGHTFUL GOODS • CUSTOM • BOOKS • HOME</p><button onClick={() => {setPage('Dashboard');setShowOS(true)}}>Owner login <ArrowRight size={14}/></button></footer>
+    <section className="custom-luxe" id="custom"><div><p className="eyebrow light">CUSTOM / MADE SIMPLE</p><h2>Your idea.<br/><em>Positively made.</em></h2><p>Schools, teams, events, businesses, and one-of-one gifts — with a clear proof-to-production process behind every order.</p><a href="#">Start a custom order <ArrowRight size={15}/></a></div><div className="custom-mark"><img src="/brand/pm-monogram.svg" alt="PM"/></div></section>
+
+    <section className="newsletter"><p className="eyebrow">FROM THE STUDIO</p><h2>A little more good,<br/>straight to your inbox.</h2><div><input placeholder="Email address"/><button>Join <ArrowRight size={14}/></button></div></section>
+
+    <footer className="site-footer"><BrandLockup dark/><p>SHOP • CUSTOM • BOOKS • HOME • KITCHEN</p><button onClick={() => {setPage('Dashboard');setShowOS(true)}}>Owner workspace <ArrowRight size={14}/></button></footer>
   </div>;
 }
 
@@ -91,11 +110,9 @@ function BusinessOS({ page, setPage, onViewSite, onPublish }:{ page:OsPage; setP
 }
 
 function Dashboard({setPage}:{setPage:(p:OsPage)=>void}) {
-  return <>
-    <section className="os-welcome"><div><small>TODAY</small><h2>Good morning, Stephanie.</h2><p>Everything important, in one place.</p></div><img src="/brand/sun.svg" alt=""/></section>
+  return <><section className="os-welcome"><div><small>TODAY</small><h2>Good morning, Stephanie.</h2><p>Everything important, in one place.</p></div><img src="/brand/sun.svg" alt=""/></section>
     <section className="os-metrics"><article><strong>12</strong><span>Open orders</span></article><article><strong>4</strong><span>Proofs waiting</span></article><article><strong>7</strong><span>In production</span></article><article><strong>$4,280</strong><span>This month</span></article></section>
-    <section className="os-lower"><div><small>ACTIVE WORK</small><h3>Orders</h3><p>Lincoln PTO — Proof Needed</p><p>Megan R. — In Production</p><p>Bayside Soccer — Awaiting Approval</p></div><div><small>TRY IT</small><h3>Test the system</h3><p>Add a product, publish it, and watch it appear on the customer website.</p><button className="demo-launch" onClick={()=>setPage('Product Studio')}>Start guided test <ArrowRight size={14}/></button></div></section>
-  </>;
+    <section className="os-lower"><div><small>ACTIVE WORK</small><h3>Orders</h3><p>Lincoln PTO — Proof Needed</p><p>Megan R. — In Production</p><p>Bayside Soccer — Awaiting Approval</p></div><div><small>TRY IT</small><h3>Test the system</h3><p>Add a product, publish it, and watch it appear inside New Arrivals on the luxury storefront.</p><button className="demo-launch" onClick={()=>setPage('Product Studio')}>Start guided test <ArrowRight size={14}/></button></div></section></>;
 }
 
 function ProductStudio({onPublish}:{onPublish:(p:Product)=>void}){
@@ -105,22 +122,15 @@ function ProductStudio({onPublish}:{onPublish:(p:Product)=>void}){
   const [price,setPrice] = useState('28');
   const [description,setDescription] = useState('A thoughtful everyday piece made to bring a little more good into the routine.');
   const steps = ['Choose template','Product details','Placement','Review'];
-  const goNext = () => setStep(s=>Math.min(4,s+1));
   const publish = () => onPublish({ id:`demo-${Date.now()}`, name, price, description, template:template.name, category:template.category, publishedAt:new Date().toISOString() });
-
-  return <div className="studio-shell">
-    <div className="test-banner"><Sparkles size={15}/><div><strong>DEMO MODE</strong><span>Publishing here updates this prototype website only — perfect for testing the workflow.</span></div></div>
+  return <div className="studio-shell"><div className="test-banner"><Sparkles size={15}/><div><strong>DEMO MODE</strong><span>Publishing here updates this prototype website only — perfect for testing the workflow.</span></div></div>
     <div className="studio-head"><div><p>GUIDED WORKFLOW</p><h2>Add a new product</h2><span>The system asks the questions, then places the product in the right part of the website automatically.</span></div><button onClick={()=>setStep(1)}>Start over</button></div>
     <div className="step-track">{steps.map((s,i)=><div key={s} className={step>=i+1?'on':''}><span>{step>i+1?<Check size={12}/>:i+1}</span><b>{s}</b></div>)}</div>
-
-    <div className="studio-card">
-      {step===1 && <><p className="studio-label">STEP 1 / WHAT ARE YOU ADDING?</p><h3>Choose a product template</h3><div className="template-grid">{templates.map(t=><button key={t.name} className={template.name===t.name?'selected':''} onClick={()=>setTemplate(t)}><strong>{t.name}</strong><span>{t.note}</span><small>{t.category}</small></button>)}</div></>}
+    <div className="studio-card">{step===1 && <><p className="studio-label">STEP 1 / WHAT ARE YOU ADDING?</p><h3>Choose a product template</h3><div className="template-grid">{templates.map(t=><button key={t.name} className={template.name===t.name?'selected':''} onClick={()=>setTemplate(t)}><strong>{t.name}</strong><span>{t.note}</span><small>{t.category}</small></button>)}</div></>}
       {step===2 && <><p className="studio-label">STEP 2 / PRODUCT DETAILS</p><h3>Fill in the basics</h3><div className="form-grid"><label>Product name<input value={name} onChange={e=>setName(e.target.value)}/></label><label>Price<input value={price} onChange={e=>setPrice(e.target.value)}/></label><label className="wide">Description<textarea value={description} onChange={e=>setDescription(e.target.value)}/></label></div></>}
-      {step===3 && <><p className="studio-label">STEP 3 / WEBSITE PLACEMENT</p><h3>We already know where it belongs.</h3><div className="route-card"><span>AUTOMATIC ROUTING</span><strong>{template.category}</strong><p>Because you chose the <b>{template.name}</b> template, this product will automatically appear in this category on the customer website.</p><div><Check size={15}/> Product page created</div><div><Check size={15}/> Category connected</div><div><Check size={15}/> Inventory fields matched</div></div></>}
+      {step===3 && <><p className="studio-label">STEP 3 / WEBSITE PLACEMENT</p><h3>We already know where it belongs.</h3><div className="route-card"><span>AUTOMATIC ROUTING</span><strong>{template.category}</strong><p>Because you chose the <b>{template.name}</b> template, this product will appear in New Arrivals and its correct collection.</p><div><Check size={15}/> Product page created</div><div><Check size={15}/> Category connected</div><div><Check size={15}/> Inventory fields matched</div></div></>}
       {step===4 && <><p className="studio-label">STEP 4 / REVIEW</p><h3>Preview before publishing</h3><div className="review-grid"><div className="product-preview"><div className="preview-art"><img src="/brand/sun.svg" alt=""/></div><small>{template.category}</small><strong>{name}</strong><span>${Number(price || 0).toFixed(2)}</span></div><div className="review-list"><p><span>Template</span><b>{template.name}</b></p><p><span>Website category</span><b>{template.category}</b></p><p><span>Status</span><b>Ready</b></p><p><span>Next step</span><b>Publish to demo website</b></p></div></div></>}
-      <div className="studio-actions"><button disabled={step===1} onClick={()=>setStep(s=>Math.max(1,s-1))}>Back</button>{step<4?<button className="primary" onClick={goNext}>Continue <ChevronRight size={14}/></button>:<button className="primary" onClick={publish}>Publish to website <ArrowRight size={14}/></button>}</div>
-    </div>
-  </div>;
+      <div className="studio-actions"><button disabled={step===1} onClick={()=>setStep(s=>Math.max(1,s-1))}>Back</button>{step<4?<button className="primary" onClick={()=>setStep(s=>Math.min(4,s+1))}>Continue <ChevronRight size={14}/></button>:<button className="primary" onClick={publish}>Publish to website <ArrowRight size={14}/></button>}</div></div></div>;
 }
 
 function SimpleWorkspace({page}:{page:OsPage}){
